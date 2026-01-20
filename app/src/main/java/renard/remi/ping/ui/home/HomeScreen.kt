@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import renard.remi.ping.domain.model.Movie
-import renard.remi.ping.ui.home.component.MovieCard
+import renard.remi.ping.ui.component.MovieCard
 
 @Composable
 fun HomeScreen(
@@ -67,6 +67,6 @@ fun HomeScreen(
 fun HomeScreenPreview() {
     HomeScreen(
         state = HomeState(),
-        onMovieClicked = {}
+        onMovieClicked = {},
     )
 }

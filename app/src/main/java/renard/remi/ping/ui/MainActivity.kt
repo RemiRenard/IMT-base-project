@@ -1,4 +1,4 @@
-package renard.remi.ping.ui.main
+package renard.remi.ping.ui
 
 import android.net.Uri
 import android.os.Bundle
@@ -41,26 +41,26 @@ class MainActivity : ComponentActivity() {
                             val state by homeViewModel.state.collectAsStateWithLifecycle()
 
                             HomeScreen(
-                                modifier = Modifier.padding(paddingValues),
+                                modifier = Modifier.Companion.padding(paddingValues),
                                 onEvent = homeViewModel::onEvent,
                                 state = state,
                                 onMovieClicked = { movie ->
-                                    val encodedUrl = Uri.encode(movie.imgPoster)
+                                    val encodedUrl = Uri.encode(movie.imageUrl)
                                     navController.navigate("MovieDetails/$encodedUrl")
-                                }
+                                },
                             )
                         }
                         composable(
                             route = "MovieDetails/{pictureUrl}",
                             arguments = listOf(navArgument("pictureUrl") {
-                                type = NavType.StringType
+                                type = NavType.Companion.StringType
                             })
                         ) { navBackStackEntry ->
                             val pictureUrl = navBackStackEntry.arguments?.getString("pictureUrl")
                                 ?.let { Uri.decode(it) } ?: ""
 
                             MovieDetailsScreen(
-                                modifier = Modifier.padding(paddingValues),
+                                modifier = Modifier.Companion.padding(paddingValues),
                                 pictureUrl = pictureUrl
                             )
                         }
@@ -70,4 +70,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-

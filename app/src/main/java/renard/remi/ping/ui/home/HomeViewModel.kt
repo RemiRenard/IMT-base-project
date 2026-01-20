@@ -1,18 +1,13 @@
 package renard.remi.ping.ui.home
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import renard.remi.ping.domain.use_case.SearchMovieUseCase
+import renard.remi.ping.domain.model.Movie
 
-class HomeViewModel(
-    // Next step : Use DI
-    private val searchMovieUseCase: SearchMovieUseCase = SearchMovieUseCase()
-) : ViewModel() {
+class HomeViewModel() : ViewModel() {
 
     private val _state: MutableStateFlow<HomeState> = MutableStateFlow(HomeState())
     val state: StateFlow<HomeState>
@@ -36,14 +31,16 @@ class HomeViewModel(
     }
 
     private fun searchMovie() {
-        viewModelScope.launch {
-            _state.value.searchText?.let {
-                searchMovieUseCase(name = it).collect { movies ->
-                    _state.update { state ->
-                        state.copy(movies = movies)
-                    }
-                }
-            }
+        // TODO fetch from network
+        _state.update {
+            it.copy(
+                movies = listOf(
+                    Movie(
+                        title = "Un titre de film",
+                        imageUrl = "https://projetcartylion.fr/wp-content/uploads/2020/08/Placeholder.png"
+                    )
+                )
+            )
         }
     }
 }
