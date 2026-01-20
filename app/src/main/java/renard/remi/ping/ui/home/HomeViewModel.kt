@@ -38,10 +38,22 @@ class HomeViewModel(
     private fun searchMovie() {
         viewModelScope.launch {
             _state.value.searchText?.let {
-                movieRepository.findMovie(name = it).collect { movies ->
-                    _state.update { state ->
-                        state.copy(movies = movies)
-                    }
+                _state.update { state ->
+                    state.copy(isLoading = true)
+                }
+                movieRepository.findMovie(name = it).collect { result ->
+                    result.fold(
+                        onSuccess = { movies ->
+                            _state.update { state ->
+                                state.copy(movies = movies, isLoading = false)
+                            }
+                        },
+                        onFailure = { error ->
+                            _state.update { state ->
+                                state.copy(movies = emptyList(), isLoading = false)
+                            }
+                        }
+                    )
                 }
             }
         }

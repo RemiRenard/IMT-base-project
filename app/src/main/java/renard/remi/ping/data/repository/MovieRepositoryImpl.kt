@@ -15,10 +15,8 @@ class MovieRepositoryImpl(
         val response = apiService.searchMovie(
             search = name
         )
-        emit(response.toDomain())
+        emit(Result.success(response.toDomain()))
+    }.catch { throwable ->
+        emit(Result.failure(throwable))
     }
-        .catch { throwable ->
-            println("Error in MovieRepositoryImpl -> findMovie $throwable")
-            emit(emptyList())
-        }
 }
