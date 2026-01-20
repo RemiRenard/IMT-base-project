@@ -8,7 +8,6 @@ import renard.remi.ping.data.network.toDomain
 import renard.remi.ping.domain.repository.MovieRepository
 
 class MovieRepositoryImpl(
-    // Next step : Use DI
     private val apiService: ApiService = ApiClient.create()
 ) : MovieRepository {
 

@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import renard.remi.ping.domain.use_case.SearchMovieUseCase
+import renard.remi.ping.data.repository.MovieRepositoryImpl
+import renard.remi.ping.domain.repository.MovieRepository
 
 class HomeViewModel(
-    // Next step : Use DI
-    private val searchMovieUseCase: SearchMovieUseCase = SearchMovieUseCase()
+    private val movieRepository: MovieRepository = MovieRepositoryImpl()
 ) : ViewModel() {
 
     private val _state: MutableStateFlow<HomeState> = MutableStateFlow(HomeState())
@@ -38,7 +38,7 @@ class HomeViewModel(
     private fun searchMovie() {
         viewModelScope.launch {
             _state.value.searchText?.let {
-                searchMovieUseCase(name = it).collect { movies ->
+                movieRepository.findMovie(name = it).collect { movies ->
                     _state.update { state ->
                         state.copy(movies = movies)
                     }

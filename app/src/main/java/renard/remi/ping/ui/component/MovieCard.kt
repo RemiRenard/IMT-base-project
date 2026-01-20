@@ -1,4 +1,4 @@
-package renard.remi.ping.ui.home.component
+package renard.remi.ping.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
