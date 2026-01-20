@@ -38,10 +38,19 @@ class HomeViewModel(
     private fun searchMovie() {
         viewModelScope.launch {
             _state.value.searchText?.let {
-                searchMovieUseCase(name = it).collect { movies ->
-                    _state.update { state ->
-                        state.copy(movies = movies)
-                    }
+                searchMovieUseCase(name = it).collect { result ->
+                    result.fold(
+                        onSuccess = { movies ->
+                            _state.update { state ->
+                                state.copy(movies = movies)
+                            }
+                        },
+                        onFailure = {
+                            _state.update { state ->
+                                state.copy(movies = emptyList())
+                            }
+                        }
+                    )
                 }
             }
         }

@@ -7,16 +7,7 @@ fun MovieResponse.toDomain(): List<Movie> {
     return this.description.map {
         Movie(
             title = it.title,
-            year = it.year,
-            imdbId = it.imdbId,
-            rank = it.rank,
-            actors = it.actors,
-            aka = it.aka,
-            imdbUrl = it.imdbUrl,
-            imdbIv = it.imdbIv,
-            imgPoster = it.imgPoster,
-            photoWidth = it.photoWidth,
-            photoHeight = it.photoHeight
+            pictureUrl = it.imgPoster
         )
     }
 }
