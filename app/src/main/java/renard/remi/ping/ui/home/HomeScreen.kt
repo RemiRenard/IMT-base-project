@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -16,15 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import renard.remi.ping.domain.model.Movie
-import renard.remi.ping.ui.home.component.MovieCard
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier,
-    state: HomeState,
-    onEvent: (HomeUIEvent) -> Unit = {},
-    onMovieClicked: (movie: Movie) -> Unit
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
@@ -34,30 +27,19 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 12.dp),
-            value = state.searchText ?: "",
+            value = "TODO",
             onValueChange = {
-                onEvent(HomeUIEvent.ChangeSearchText(it))
+                // TODO
             }
         )
         Spacer(modifier = Modifier.height(24.dp))
         Button(
             modifier = Modifier.fillMaxWidth(0.5F),
             onClick = {
-                onEvent(HomeUIEvent.SubmitSearch)
+                // TODO
             }
         ) {
             Text(text = "Find movies")
-        }
-        Spacer(modifier = Modifier.height(24.dp))
-        LazyColumn {
-            items(state.movies) { movie ->
-                MovieCard(
-                    movie = movie,
-                    onClick = {
-                        onMovieClicked.invoke(it)
-                    }
-                )
-            }
         }
     }
 }
@@ -65,8 +47,5 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(
-        state = HomeState(),
-        onMovieClicked = {}
-    )
+    HomeScreen()
 }
